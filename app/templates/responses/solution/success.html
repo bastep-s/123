@@ -1,0 +1,130 @@
+{% set passed_tests = response['passed_tests'] %}
+{% set number_of_tests = response['tests']|length %}
+
+{% if passed_tests == number_of_tests %}
+    {% set result_status = 'successful' %}
+{% else %}
+    {% set result_status = 'failed' %}
+{% endif %}
+
+{% set current_user_is_admin = current_user.is_admin %}
+
+<div class="code-response__body" id="code-response__body">
+    <div class="code-response__header">
+        <div class="status {{ result_status }}">
+            <i class="status__icon fas fa-2x fa-poll"></i>
+            <p class="status__text">Пройдено тестов {{ passed_tests }}/{{ number_of_tests }}</p>
+        </div>
+        <div class="info">
+            <button class="info__button default_button">
+                <i class="default_button__icon fas fa-info-circle"></i>
+            </button>
+            <div class="info__content box-shadow">
+                <div class="arrow_up"></div>
+                <div class="info__content__item">
+                    <p class="item__title">Общее время тестирования: </p>
+                    {% if response['time'] %}
+                        <div class="item__content">
+                            <span class="item__content__text">{{ response['time'] }}</span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="info__content__item">
+                    <p class="item__title">Язык программирования: </p>
+                    <div class="item__content">
+                        {% set language = response['language'] %}
+                        <img class="item__content__icon" src="{{ language.icon_url }}" alt="icon">
+                        <span class="item__content__text">{{ language.fullname }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tests-list">
+        <div class="row tests-list_row">
+            <div class="col-xl-3 col-md-4 col-5 nav_col">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    {% for value in response['tests'] %}
+                        {% set key = loop.index %}
+
+                        {% if value['success'] %}
+                            {% set test_result = 'successful' %}
+                        {% else %}
+                            {% set test_result = 'failed' %}
+                        {% endif %}
+
+                        {% if loop.first %}
+                            {% set classes = 'active' %}
+                            {% set aria_selected = true %}
+                        {% else %}
+                            {% set classes = '' %}
+                            {% set aria_selected = false %}
+                        {% endif %}
+
+                        <a class="tests-list__item {{ classes }} {{ test_result }}" id="response_tab_{{ key }}"
+                           data-toggle="pill"
+                           href="#response_tab_content_{{ key }}" role="tab"
+                           aria-controls="response_tab_content_{{ key }}" aria-selected="{{ aria_selected }}">
+                            {# Status icon #}
+                            {% if value['success'] %}
+                                <i class="far fa-check-circle"></i>
+                            {% else %}
+                                <i class="far fa-times-circle"></i>
+                            {% endif %}
+
+                            {# Test #}
+                            <p class="item__text"> Тест {{ key }}</p>
+
+                            {# Locked test icon #}
+                            {% set test = value['test'] %}
+                            {% if test.is_hidden and not current_user_is_admin %}
+                                <i class="fas locked_test__tab_icon fa-lock"></i>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-xl-9 col-md-8 col-7 tab-content_col">
+                <div class="tab-content" id="v-pills-tabContent">
+                    {% for value in response['tests'] %}
+                        {% set key = loop.index %}
+
+                        {% if loop.first %}
+                            {% set classes = 'show active' %}
+                        {% else %}
+                            {% set classes = '' %}
+                        {% endif %}
+
+                        <div class="tab-pane fade {{ classes }}" id="response_tab_content_{{ key }}"
+                             role="tabpanel"
+                             aria-labelledby="response_tab_{{ key }}">
+                            <div class="compiler__message tab-content__block">
+                                <p class="tab-content__title">Сообщение</p>
+                                <p class="compiler__message__text">{{ value['message'] }}</p>
+                            </div>
+
+                            {% set test = value['test'] %}
+                            {% if test.is_hidden and not current_user_is_admin %}
+                                <div class="locked-test">
+                                    <i class="locked-test__icon fas fa-lock"></i>
+                                    <p class="locked-test__text">Это скрытый тест</p>
+                                </div>
+                            {% else %}
+                                <div class="stdin tab-content__block">
+                                    <p class="tab-content__title">Ввод (stdin)</p>
+                                    <pre>{{ test.stdin }}</pre>
+                                </div>
+                                <div class="expected-output tab-content__block">
+                                    <p class="tab-content__title">Ожидаемый вывод</p>
+                                    <pre>{{ test.stdout }}</pre>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

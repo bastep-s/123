@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('problems.static', filename='css/route.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="route__body">
+                <div class="route__title text_with_icon">
+                    <i class="fa fa-2x fa-tasks route__title__icon" aria-hidden="true"></i>
+                    <p class="route__title__text">Классы:</p>
+                </div>
+                {% if grades %}
+                    <div class="route__body_list box-shadow">
+                        {% for grade in grades %}
+                            <div class="list_item">
+                                <a href="{{ url_for('problems.grade_page', grade_number=grade.number) }}"
+                                   class="list_item__link"></a>
+                                <div class="list_item_content">
+                                    <p class="item_title">{{ grade.number }} класс</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {% include 'responses/empty_response.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

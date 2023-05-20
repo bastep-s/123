@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('auth.static', filename='css/after_confirm.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="confirmation__result">
+                {% if success %}
+                    <p class="result__status success">{{ status }}</p>
+                    <p class="result__text">Теперь вам доступен весь функционал сайта</p>
+                {% else %}
+                    <p class="result__status">{{ status }}</p>
+                    <p class="result__text">Отправьте повторный запрос на подтверждение</p>
+                {% endif %}
+
+                <a href="{{ url_for('home_page') }}" class="bordered_button">
+                    Перейти на главную
+                </a>
+            </div>
+        </div>
+    </div>
+    {% if success %}
+        <div id="confetti">
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+            <div class="confetti"></div>
+        </div>
+    {% endif %}
+{% endblock %}

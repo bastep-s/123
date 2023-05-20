@@ -1,0 +1,51 @@
+.task .admin_dropdown .dropdown__grade .dropdown-btn {
+    min-width: 80px;
+}
+
+.task .admin_dropdown .dropdown__topic .dropdown-btn {
+    width: 120%;
+    position: relative;
+}
+
+.task .tests__main .create_task__test_block {
+    padding: 15px;
+    border-radius: 5px;
+    background: var(--defaul-icon-color);
+    margin-bottom: 15px;
+}
+
+.task .tests__main .test_block__title {
+    font-size: 20px;
+}
+
+.task .tests__main .create_test_button {
+    display: block;
+    margin: auto;
+    padding: 8px 10px;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 18px;
+    border: 2px solid var(--blue-color);
+    border-radius: 10px;
+    transition: all .2s ease;
+}
+
+.task .tests__main .create_test_button:hover {
+    background-color: var(--blue-color);
+}
+
+.tests__main .test_block__footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.tests__main .test_block__footer .footer__left {
+    display: flex;
+    align-items: center;
+}
+
+.is_hidden__label {
+    font-size: 18px;
+    margin: 0;
+}

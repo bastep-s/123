@@ -1,0 +1,103 @@
+:root {
+    --avatar-text-color: #14161a;
+    --avatar-size: 80px;
+    --form-background-color: var(--modal-backgroung)
+}
+
+.profile__title {
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.profile__title .profile__title__icon {
+    font-size: 1.5em !important;
+    margin-right: 10px;
+    color: var(--darker-text-color);
+}
+
+.profile__title .profile__title__text {
+    font-size: 24px;
+}
+
+.container-fluid {
+    width: 85%;
+}
+
+.user__info {
+    padding: 10px;
+}
+
+.user__info .user__info__block {
+    display: flex;
+    align-items: center;
+}
+
+.user__info .user__info__block .fa {
+    margin-right: 6px;
+}
+
+.user__info .avatar__block {
+    position: relative;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    margin-bottom: 25px;
+
+}
+
+.user__info .avatar__block .avatar__image {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.user__info .avatar__block .avatar__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--avatar-text-color);
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.user__info .name__block {
+    margin-bottom: 6px;
+}
+
+.user__info .name__block .fa {
+    font-size: 26px
+}
+
+.user__info .name__block .name__text {
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.user__info .email__block {
+    color: var(--darker-text-color);
+}
+
+.profile_button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 3px 0;
+    border-radius: 5px;
+}
+
+.user__info #delete_profile__button {
+    border: 2px solid var(--error-color);
+}
+
+.user__info #delete_profile__button:hover {
+    background: var(--error-color);
+}
+
+.user__info #edit_profile__button:focus,
+.user__info #edit_profile__button:active {
+    border: 2px solid var(--purple-color);
+}
+
+.user__info #delete_profile__button:focus,
+.user__info #delete_profile__button:active {
+    border: 2px solid var(--error-color);
+}
